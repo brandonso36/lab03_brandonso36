@@ -274,6 +274,14 @@ bool IntBST::remove(int value){
         return false;
     }
 
+    if ((n -> left != nullptr) && (n -> right != nullptr)){ // if node has two children
+        Node* succ = getSuccessorNode(value);
+        int successorVal = succ->info; // Save the value
+        remove(successorVal); // Delete the successor node first
+        n -> info = successorVal; // Overwrite current node info
+        return true;
+    }
+
     if (n == root) { // if n is the root 
         if (n -> left != nullptr) { // if the root has a left child
             root = n -> left; // makes the root the left subtree
@@ -292,13 +300,6 @@ bool IntBST::remove(int value){
         return true;
     }
     
-    if ((n -> left != nullptr) && (n -> right != nullptr)){ // if node has two children
-        Node* succ = getSuccessorNode(value);
-        int successorVal = succ->info; // Save the value
-        remove(successorVal); // Delete the successor node first
-        n -> info = successorVal; // Overwrite current node info
-        return true;
-    }
 
     Node* parent = n->parent; // makes a pointer to the parent of the node
 
@@ -332,7 +333,7 @@ bool IntBST::remove(int value){
         }
         n -> right -> parent = parent; // Update the child's parent pointer to the grandparent
     }
-    
+
     delete n;
     return true;
 }
