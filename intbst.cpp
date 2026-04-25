@@ -332,6 +332,7 @@ bool IntBST::remove(int value){
         }
         n -> right -> parent = parent; // Update the child's parent pointer to the grandparent
     }
-
+    
+    delete n;
     return true;
 }
