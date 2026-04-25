@@ -293,9 +293,11 @@ bool IntBST::remove(int value){
     }
     
     if ((n -> left != nullptr) && (n -> right != nullptr)){ // if node has two children
-        Node* succ = getSuccessorNode(value); // get the successor
-        n -> info = succ -> info; // replace the node with the successor
-        return remove(succ -> info); // recurse until theres only one child
+        Node* succ = getSuccessorNode(value);
+        int successorVal = succ->info; // Save the value
+        remove(successorVal); // Delete the successor node first
+        n -> info = successorVal; // Overwrite current node info
+        return true;
     }
 
     Node* parent = n->parent; // makes a pointer to the parent of the node
